@@ -6,9 +6,21 @@ function App() {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [repos, setRepos] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSearch = async () => {
+    if (!username.trim()) {
+      setError("Please enter a GitHub username");
+      return;
+    }
+
     try {
+      setLoading(true);
+      setError("");
+      setUser(null);
+      setRepos([]);
+
       const response = await axios.get(
         `http://localhost:5000/api/github/${username}`
       );
@@ -17,7 +29,9 @@ function App() {
       setRepos(response.data.repos);
     } catch (error) {
       console.error(error);
-      alert("User not found");
+      setError("User not found");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -32,13 +46,18 @@ function App() {
         onChange={(e) => setUsername(e.target.value)}
       />
 
-      <button onClick={handleSearch}>Search</button>
+      <button onClick={handleSearch} disabled={loading}>
+        {loading ? "Searching..." : "Search"}
+      </button>
+
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
 
       {user && (
         <div>
-          <h2>{user.name}</h2>
+          <h2>{user.name || user.login}</h2>
           <img src={user.avatar_url} alt={user.login} width="150" />
-          <p>{user.bio}</p>
+          <p>{user.bio || "No bio available"}</p>
           <p>Followers: {user.followers}</p>
           <p>Following: {user.following}</p>
           <p>Public Repos: {user.public_repos}</p>
