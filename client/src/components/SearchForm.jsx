@@ -9,20 +9,20 @@ const SearchForm = ({
   return (
     <form
       onSubmit={onSubmit}
-      className="flex gap-4 max-w-2xl mx-auto"
+      className="flex gap-4 max-w-3xl mx-auto mt-8"
     >
       <input
         type="text"
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="flex-1 px-6 py-4 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        className="flex-1 px-6 py-4 bg-[#161b22] border border-[#30363d] rounded-xl text-[#c9d1d9] placeholder-[#8b949e] focus:outline-none focus:ring-2 focus:ring-[#58a6ff]"
       />
 
       <button
         type="submit"
         disabled={loading}
-        className="px-8 py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-800 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors duration-200"
+        className="px-8 py-4 bg-[#238636] hover:bg-[#2ea043] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition-colors duration-200"
       >
         {loading ? "Searching..." : buttonText}
       </button>

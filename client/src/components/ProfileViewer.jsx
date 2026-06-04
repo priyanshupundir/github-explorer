@@ -18,7 +18,10 @@ const ProfileViewer = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
 
-    if (!username.trim()) return;
+    if (!username.trim()) {
+  setError("Please enter a GitHub username");
+  return;
+}
 
     try {
       setLoading(true);
@@ -62,7 +65,7 @@ const ProfileViewer = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gray-900 p-6">
+    <div className="min-h-screen bg-[#0d1117] text-[#c9d1d9] p-6">
       <SearchForm
         value={username}
         onChange={(e) => setUsername(e.target.value)}
@@ -73,39 +76,93 @@ const ProfileViewer = () => {
 
       <ErrorMessage message={error} />
 
+      {!profile && repos.length === 0 && !loading && (
+  <div className="flex flex-col items-center justify-center text-center py-32">
+    <div className="text-7xl mb-6">
+      🐙
+    </div>
+
+    <h2 className="text-5xl font-bold text-[#c9d1d9] mb-4">
+      Explore GitHub Users
+    </h2>
+
+    <p className="text-[#8b949e] text-lg max-w-2xl">
+      Search for GitHub developers, explore their repositories,
+      discover projects, and view profile statistics.
+    </p>
+
+    <div className="mt-10 flex gap-3 flex-wrap justify-center">
+      <span className="px-4 py-2 bg-[#161b22] border border-[#30363d] rounded-lg text-[#58a6ff]">
+        React
+      </span>
+
+      <span className="px-4 py-2 bg-[#161b22] border border-[#30363d] rounded-lg text-[#58a6ff]">
+        Open Source
+      </span>
+
+      <span className="px-4 py-2 bg-[#161b22] border border-[#30363d] rounded-lg text-[#58a6ff]">
+        Developers
+      </span>
+
+      <span className="px-4 py-2 bg-[#161b22] border border-[#30363d] rounded-lg text-[#58a6ff]">
+        GitHub API
+      </span>
+    </div>
+  </div>
+)}
+
       {profile && (
-        <div className="bg-gray-800 rounded-xl p-6 mt-6">
-          <div className="flex flex-col items-center">
+        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-8 mt-8">
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
             <img
               src={profile.avatar_url}
               alt={profile.login}
-              className="w-32 h-32 rounded-full mb-4"
+              className="w-32 h-32 rounded-full border border-[#30363d]"
             />
 
-            <h2 className="text-3xl font-bold text-white">
-              {profile.name || profile.login}
-            </h2>
+            <div className="text-center md:text-left">
+              <h2 className="text-3xl font-bold text-[#c9d1d9]">
+               {profile.name || profile.login}
+              </h2>
 
-            <a 
-              href={profile.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 inline-block px-4 py-2 bg-blue-600 rounded-lg text-white hover:bg-blue-700"
-              >
-                View Github profile
+              <a
+                href={profile.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#58a6ff] hover:underline mt-1 inline-block"
+                >
+                @{profile.login}
               </a>
 
-            <p className="text-gray-400 mt-2">
-              {profile.bio || "No bio available"}
-            </p>
-
-            <div className="flex gap-6 mt-4 text-white">
-              <span>Followers: {profile.followers}</span>
-              <span>Following: {profile.following}</span>
-              <span>Repos: {profile.public_repos}</span>
-            </div>
+              <p className="text-[#8b949e] mt-4 max-w-2xl">
+               {profile.bio || "No bio available"}
+              </p>
           </div>
         </div>
+
+        <div className="border-t border-[#30363d] mt-8 pt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="text-center">
+            <p className="text-3xl font-bold text-[#c9d1d9]">
+              {profile.public_repos}
+            </p>
+            <p className="text-[#8b949e]">Repositories</p>
+          </div>
+
+          <div className="text-center">
+            <p className="text-3xl font-bold text-[#c9d1d9]">
+              {profile.followers}
+            </p>
+            <p className="text-[#8b949e]">Followers</p>
+          </div>
+
+          <div className="text-center">
+            <p className="text-3xl font-bold text-[#c9d1d9]">
+               {profile.following}
+            </p>
+            <p className="text-[#8b949e]">Following</p>
+          </div>
+        </div>
+      </div>
       )}
 
       {repos.length > 0 && (
@@ -118,7 +175,7 @@ const ProfileViewer = () => {
             disabled={loading}
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {sortedRepos.map((repo) => (
               <RepoCard key={repo.id} repo={repo} />
             ))}
