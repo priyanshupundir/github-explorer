@@ -86,6 +86,15 @@ const ProfileViewer = () => {
               {profile.name || profile.login}
             </h2>
 
+            <a 
+              href={profile.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-block px-4 py-2 bg-blue-600 rounded-lg text-white hover:bg-blue-700"
+              >
+                View Github profile
+              </a>
+
             <p className="text-gray-400 mt-2">
               {profile.bio || "No bio available"}
             </p>
@@ -109,7 +118,7 @@ const ProfileViewer = () => {
             disabled={loading}
           />
 
-          <div className="grid gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {sortedRepos.map((repo) => (
               <RepoCard key={repo.id} repo={repo} />
             ))}
