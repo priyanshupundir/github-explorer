@@ -1,84 +1,32 @@
 import { useState } from "react";
-import axios from "axios";
-import "./App.css";
+import ProfileViewer from "./components/ProfileViewer";
+import NavButton from "./components/NavButton";
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [user, setUser] = useState(null);
-  const [repos, setRepos] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleSearch = async () => {
-    if (!username.trim()) {
-      setError("Please enter a GitHub username");
-      return;
-    }
-
-    try {
-      setLoading(true);
-      setError("");
-      setUser(null);
-      setRepos([]);
-
-      const response = await axios.get(
-        `http://localhost:5000/api/github/${username}`
-      );
-
-      setUser(response.data.user);
-      setRepos(response.data.repos);
-    } catch (error) {
-      console.error(error);
-      setError("User not found");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [activeTab, setActiveTab] = useState("profile");
 
   return (
-    <div>
-      <h1>GitHub Explorer</h1>
+    <div className="h-screen flex flex-col overflow-hidden">
+      <nav className="bg-gray-900 border-b border-gray-800 sticky top-0 z-50 shrink-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <h1 className="text-xl font-bold text-white">Github Explorer</h1>
 
-      <input
-        type="text"
-        placeholder="Enter GitHub username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-
-      <button onClick={handleSearch} disabled={loading}>
-        {loading ? "Searching..." : "Search"}
-      </button>
-
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-
-      {user && (
-        <div>
-          <h2>{user.name || user.login}</h2>
-          <img src={user.avatar_url} alt={user.login} width="150" />
-          <p>{user.bio || "No bio available"}</p>
-          <p>Followers: {user.followers}</p>
-          <p>Following: {user.following}</p>
-          <p>Public Repos: {user.public_repos}</p>
-        </div>
-      )}
-
-      {repos.length > 0 && (
-        <div>
-          <h2>Repositories</h2>
-
-          {repos.map((repo) => (
-            <div key={repo.id}>
-              <h3>{repo.name}</h3>
-              <p>{repo.description || "No description available"}</p>
-              <p>Language: {repo.language || "Not specified"}</p>
-              <p>⭐ Stars: {repo.stargazers_count}</p>
-              <p>Updated: {new Date(repo.updated_at).toLocaleDateString()}</p>
+            <div className="flex gap-4">
+              <NavButton
+                onClick={() => setActiveTab("profile")}
+                isActive={activeTab === "profile"}
+              >
+                Profile Viewer
+              </NavButton>
             </div>
-          ))}
+          </div>
         </div>
-      )}
+      </nav>
+
+      <main className="flex-1 overflow-y-auto">
+        {activeTab === "profile" && <ProfileViewer />}
+      </main>
     </div>
   );
 }
