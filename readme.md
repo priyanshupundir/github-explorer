@@ -1,76 +1,191 @@
 # GitHub Explorer
 
-A modern GitHub profile and repository explorer built with React, Express, and the GitHub API.
+## Project Description
+
+This project is my submission for **Exercise 3: GitHub Repo Explorer** from the Studio Graphene Full Stack Developer assessment.
+
+GitHub Explorer is a full-stack web application that allows users to search for any GitHub profile and view detailed information about the user along with their public repositories. The application uses a Node.js backend as a proxy to the GitHub API and a React frontend for an interactive user experience.
+
+---
 
 ## Features
 
-- Search GitHub users by username
-- View user profile information
-  - Avatar
-  - Name
-  - Bio
-  - Followers
-  - Following
-  - Public repositories
-- Browse repositories
-- Sort repositories by:
-  - Stars
-  - Name
-  - Last Updated
-- Responsive dark-themed UI
-- Error handling for invalid usernames
+### User Profile
+
+* Search GitHub users by username
+* Display:
+
+  * Avatar
+  * Name
+  * Bio
+  * Followers count
+  * Following count
+  * Public repository count
+  * Location
+  * Website / Blog links
+
+### Repository Explorer
+
+* View all public repositories
+* Sort repositories by:
+
+  * Stars
+  * Name
+  * Last Updated
+* Repository pagination
+* Expandable repository details
+* View repository metadata
+
+### Additional Features
+
+* Server-side caching (60 seconds)
+* Loading states
+* Error handling
+* Responsive GitHub-inspired UI
+* Backend proxy for GitHub API requests
+
+---
+
+## Live Demo
+
+Frontend:
+
+```text
+Add deployed frontend URL here
+```
+
+Backend:
+
+```text
+Add deployed backend URL here
+```
+
+---
 
 ## Tech Stack
 
 ### Frontend
-- React
-- Vite
-- Tailwind CSS
-- Axios
-- React Icons
+
+* React
+* Vite
+* Tailwind CSS
+* Axios
+* React Icons
 
 ### Backend
-- Node.js
-- Express.js
 
-### API
-- GitHub REST API
+* Node.js
+* Express.js
+* Axios
+* Node Cache
 
-## Installation
+### Why These Technologies?
 
-### Clone the repository
+* React for component-based UI development
+* Vite for fast development and build performance
+* Tailwind CSS for rapid responsive styling
+* Express.js for REST API creation
+* Axios for API communication
+* Node Cache for reducing GitHub API requests and handling rate limits
+
+---
+
+## How To Run Locally
+
+### Clone Repository
 
 ```bash
 git clone https://github.com/priyanshupundir/github-explorer.git
 cd github-explorer
 ```
 
-### Install frontend dependencies
+### Install Backend Dependencies
 
 ```bash
-cd client
+cd server
 npm install
 ```
 
-### Install backend dependencies
-
-```bash
-cd ../server
-npm install
-```
-
-### Run the backend
+### Start Backend
 
 ```bash
 npm start
 ```
 
-### Run the frontend
+Backend runs on:
+
+```text
+http://localhost:5000
+```
+
+### Install Frontend Dependencies
 
 ```bash
 cd ../client
+npm install
+```
+
+### Start Frontend
+
+```bash
 npm run dev
 ```
+
+Frontend runs on:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## API Documentation
+
+### Get GitHub User Information
+
+#### Request
+
+```http
+GET /api/github/:username
+```
+
+Example:
+
+```http
+GET /api/github/torvalds
+```
+
+#### Response
+
+```json
+{
+  "user": {
+    "login": "torvalds",
+    "name": "Linus Torvalds",
+    "followers": 100000,
+    "following": 0,
+    "public_repos": 10
+  },
+  "repos": [
+    {
+      "name": "linux",
+      "description": "Linux kernel source tree",
+      "language": "C",
+      "stargazers_count": 100000
+    }
+  ]
+}
+```
+
+#### Error Response
+
+```json
+{
+  "message": "User not found"
+}
+```
+
+---
 
 ## Project Structure
 
@@ -80,41 +195,34 @@ github-explorer/
 ├── client/
 │   ├── src/
 │   │   ├── components/
-│   │   ├── utils/
-│   │   └── App.jsx
+│   │   ├── assets/
+│   │   ├── App.jsx
+│   │   └── main.jsx
 │
 ├── server/
-│   ├── routes/
-│   └── server.js
+│   ├── server.js
+│   └── package.json
 │
 └── README.md
 ```
 
-## API Endpoint
+---
 
-```http
-GET /api/github/:username
-```
+## Next Steps
 
-Returns:
+Given more time, I would implement:
 
-```json
-{
-  "user": {},
-  "repos": []
-}
-```
+* Recently searched users using localStorage
+* Repository language statistics charts
+* Debounced search suggestions
+* Unit and integration testing
+* Deployment monitoring and analytics
 
-## Future Improvements
-
-- Server-side caching
-- Repository pagination
-- Language statistics charts
-- Recently searched users
-- Repository detail expansion
+---
 
 ## Author
 
 Priyanshu Pundir
 
-GitHub: https://github.com/priyanshupundir
+GitHub:
+https://github.com/priyanshupundir
