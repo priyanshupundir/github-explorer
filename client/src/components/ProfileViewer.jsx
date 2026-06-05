@@ -34,7 +34,7 @@ const ProfileViewer = () => {
       setCurrentPage(1);
 
       const response = await axios.get(
-        `http://localhost:5000/api/github/${username}`
+        `${import.meta.env.VITE_API_URL}/api/github/${username}`
       );
 
       setProfile(response.data.user);
