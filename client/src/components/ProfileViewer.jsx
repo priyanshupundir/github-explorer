@@ -41,8 +41,10 @@ const ProfileViewer = () => {
 
       setProfile(response.data.user);
       setRepos(response.data.repos);
-    } catch {
-      setError("User not found");
+    } catch (error) {
+      setError(
+        error.response?.data?.message || "something went wrong. Please try again"
+      );
     } finally {
       setLoading(false);
     }
