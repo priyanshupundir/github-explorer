@@ -79,7 +79,7 @@ const ProfileViewer = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#0d1117] text-[#c9d1d9] p-6">
+    <div className="min-h-screen bg-[#0d1117] text-[#c9d1d9] px-4 sm:px-6 py-6 overflow-x-hidden">
       <div className="max-w-3xl mx-auto">
         <SearchForm
           value={username}
@@ -112,12 +112,12 @@ const ProfileViewer = () => {
       )}
 
       {profile && (
-        <div className="max-w-7xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8">
-          <aside>
+        <div className="max-w-7xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
+          <aside className="text-center lg:text-left">
             <img
               src={profile.avatar_url}
               alt={profile.login}
-              className="w-64 h-64 rounded-full border border-[#30363d]"
+              className="w-40 h-40 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full border border-[#30363d] mx-auto lg:mx-0"
             />
 
             <h2 className="text-2xl font-semibold text-[#f0f6fc] mt-4">
@@ -204,7 +204,7 @@ const ProfileViewer = () => {
               disabled={loading}
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 mt-6">
               {currentRepos.map((repo) => (
                 <RepoCard key={repo.id} repo={repo} />
               ))}
