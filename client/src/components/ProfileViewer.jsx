@@ -1,11 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import {
-  FaGithub,
-  FaUsers,
-  FaMapMarkerAlt,
-  FaLink,
-} from "react-icons/fa";
+import { FaGithub, FaUsers, FaMapMarkerAlt, FaLink } from "react-icons/fa";
 
 import SearchForm from "./SearchForm";
 import ErrorMessage from "./ErrorMessage";
@@ -43,7 +38,8 @@ const ProfileViewer = () => {
       setRepos(response.data.repos);
     } catch (error) {
       setError(
-        error.response?.data?.message || "something went wrong. Please try again"
+        error.response?.data?.message ||
+          "Something went wrong. Please try again."
       );
     } finally {
       setLoading(false);
@@ -74,15 +70,22 @@ const ProfileViewer = () => {
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-[#c9d1d9] p-6">
-      <SearchForm
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        onSubmit={handleSearch}
-        loading={loading}
-        placeholder="Search GitHub username..."
-      />
+      <div className="max-w-3xl mx-auto">
+        <SearchForm
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          onSubmit={handleSearch}
+          loading={loading}
+          placeholder="Search GitHub username..."
+        />
 
-      <ErrorMessage message={error} />
+        {
+          error && (
+            <div className="mt-4 p-4 bg-red-900/50 border border-red-700 rounded-lg text-red-200">
+              {error}
+              </div>
+        )}
+      </div>
 
       {!profile && !loading && (
         <div className="flex flex-col items-center justify-center text-center py-32">
@@ -93,15 +96,14 @@ const ProfileViewer = () => {
           </h2>
 
           <p className="text-[#8b949e] text-lg max-w-xl">
-            Enter a GitHub username to view their profile,
-            repositories, and activity.
+            Enter a GitHub username to view their profile, repositories, and
+            activity.
           </p>
         </div>
       )}
 
       {profile && (
         <div className="max-w-7xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8">
-          {/* LEFT SIDEBAR */}
           <aside>
             <img
               src={profile.avatar_url}
@@ -113,9 +115,7 @@ const ProfileViewer = () => {
               {profile.name || profile.login}
             </h2>
 
-            <p className="text-xl text-[#8b949e]">
-              {profile.login}
-            </p>
+            <p className="text-xl text-[#8b949e]">{profile.login}</p>
 
             <p className="text-[#c9d1d9] mt-4">
               {profile.bio || "No bio available"}
@@ -163,7 +163,7 @@ const ProfileViewer = () => {
                   }
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#58a6ff] hover:underline"
+                  className="text-[#58a6ff] hover:underline break-all"
                 >
                   {profile.blog}
                 </a>
@@ -171,12 +171,10 @@ const ProfileViewer = () => {
             )}
           </aside>
 
-          {/* RIGHT CONTENT */}
           <section>
             <div className="border-b border-[#30363d] mb-6">
               <button className="px-4 py-3 border-b-2 border-[#f78166] text-[#f0f6fc] font-medium">
                 Repositories
-
                 <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-[#30363d] text-[#c9d1d9]">
                   {profile.public_repos}
                 </span>
