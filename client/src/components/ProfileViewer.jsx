@@ -139,7 +139,7 @@ const ProfileViewer = () => {
               View GitHub Profile
             </a>
 
-            <div className="flex items-center gap-2 text-[#8b949e] mt-4">
+            <div className="flex items-center gap-2 text-[#8b949e] mt-4 pb-24">
               <FaUsers />
               <span>
                 <strong className="text-[#f0f6fc]">
@@ -211,7 +211,7 @@ const ProfileViewer = () => {
             </div>
 
             {totalPages > 1 && (
-              <div className="flex justify-center gap-2 mt-8 pb-24">
+              <div className="flex items-center justify-center gap-2 mt-8 pb-24">
                 <button
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage((page) => page - 1)}
@@ -220,7 +220,7 @@ const ProfileViewer = () => {
                   Previous
                 </button>
 
-                <span className="flex-items-center text-[#8b949e]">
+                <span className="text-[#8b949e]">
                   Page {currentPage} of {totalPages}
                 </span>
 
