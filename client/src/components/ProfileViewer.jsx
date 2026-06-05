@@ -3,7 +3,6 @@ import axios from "axios";
 import { FaGithub, FaUsers, FaMapMarkerAlt, FaLink } from "react-icons/fa";
 
 import SearchForm from "./SearchForm";
-import ErrorMessage from "./ErrorMessage";
 import RepoCard from "./RepoCard";
 import RepoFilters from "./RepoFilters";
 
@@ -15,6 +14,9 @@ const ProfileViewer = () => {
   const [order, setOrder] = useState("desc");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const reposPerPage = 10;
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -29,6 +31,7 @@ const ProfileViewer = () => {
       setError("");
       setProfile(null);
       setRepos([]);
+      setCurrentPage(1);
 
       const response = await axios.get(
         `http://localhost:5000/api/github/${username}`
@@ -68,6 +71,13 @@ const ProfileViewer = () => {
     return 0;
   });
 
+  const totalPages = Math.ceil(sortedRepos.length / reposPerPage);
+
+  const currentRepos = sortedRepos.slice(
+    (currentPage - 1) * reposPerPage,
+    currentPage * reposPerPage
+  );
+
   return (
     <div className="min-h-screen bg-[#0d1117] text-[#c9d1d9] p-6">
       <div className="max-w-3xl mx-auto">
@@ -79,11 +89,10 @@ const ProfileViewer = () => {
           placeholder="Search GitHub username..."
         />
 
-        {
-          error && (
-            <div className="mt-4 p-4 bg-red-900/50 border border-red-700 rounded-lg text-red-200">
-              {error}
-              </div>
+        {error && (
+          <div className="mt-4 p-4 bg-red-900/50 border border-red-700 rounded-lg text-red-200">
+            {error}
+          </div>
         )}
       </div>
 
@@ -184,16 +193,46 @@ const ProfileViewer = () => {
             <RepoFilters
               sort={sort}
               order={order}
-              onSortChange={setSort}
-              onOrderChange={setOrder}
+              onSortChange={(value) => {
+                setSort(value);
+                setCurrentPage(1);
+              }}
+              onOrderChange={(value) => {
+                setOrder(value);
+                setCurrentPage(1);
+              }}
               disabled={loading}
             />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-              {sortedRepos.map((repo) => (
+              {currentRepos.map((repo) => (
                 <RepoCard key={repo.id} repo={repo} />
               ))}
             </div>
+
+            {totalPages > 1 && (
+              <div className="flex justify-center items-center gap-3 mt-8">
+                <button
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage((page) => page - 1)}
+                  className="px-4 py-2 bg-[#21262d] border border-[#30363d] rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#30363d]"
+                >
+                  Previous
+                </button>
+
+                <span className="text-[#8b949e]">
+                  Page {currentPage} of {totalPages}
+                </span>
+
+                <button
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage((page) => page + 1)}
+                  className="px-4 py-2 bg-[#21262d] border border-[#30363d] rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#30363d]"
+                >
+                  Next
+                </button>
+              </div>
+            )}
           </section>
         </div>
       )}
