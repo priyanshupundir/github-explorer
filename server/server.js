@@ -25,12 +25,23 @@ app.get("/api/github/:username", async (req, res) => {
       return res.json(cachedData);
     }
 
+    const headers = process.env.GITHUB_TOKEN
+      ? {
+          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+          Accept: "application/vnd.github+json",
+        }
+      : {
+          Accept: "application/vnd.github+json",
+        };
+
     const userResponse = await axios.get(
-      `https://api.github.com/users/${username}`
+      `https://api.github.com/users/${username}`,
+      { headers }
     );
 
     const repoResponse = await axios.get(
-      `https://api.github.com/users/${username}/repos`
+      `https://api.github.com/users/${username}/repos?per_page=100`,
+      { headers }
     );
 
     const responseData = {
@@ -60,7 +71,7 @@ app.get("/api/github/:username", async (req, res) => {
   }
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
