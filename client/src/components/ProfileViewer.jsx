@@ -1,5 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import {
+  FaGithub,
+  FaUsers,
+  FaMapMarkerAlt,
+  FaLink,
+} from "react-icons/fa";
 
 import SearchForm from "./SearchForm";
 import ErrorMessage from "./ErrorMessage";
@@ -19,9 +25,9 @@ const ProfileViewer = () => {
     e.preventDefault();
 
     if (!username.trim()) {
-  setError("Please enter a GitHub username");
-  return;
-}
+      setError("Please enter a GitHub username");
+      return;
+    }
 
     try {
       setLoading(true);
@@ -71,115 +77,124 @@ const ProfileViewer = () => {
         onChange={(e) => setUsername(e.target.value)}
         onSubmit={handleSearch}
         loading={loading}
-        placeholder="Enter GitHub username"
+        placeholder="Search GitHub username..."
       />
 
       <ErrorMessage message={error} />
 
-      {!profile && repos.length === 0 && !loading && (
-  <div className="flex flex-col items-center justify-center text-center py-32">
-    <div className="text-7xl mb-6">
-      🐙
-    </div>
+      {!profile && !loading && (
+        <div className="flex flex-col items-center justify-center text-center py-32">
+          <FaGithub className="text-8xl text-[#6e7681] mb-8" />
 
-    <h2 className="text-5xl font-bold text-[#c9d1d9] mb-4">
-      Explore GitHub Users
-    </h2>
+          <h2 className="text-4xl font-semibold text-[#f0f6fc] mb-4">
+            Explore GitHub Users
+          </h2>
 
-    <p className="text-[#8b949e] text-lg max-w-2xl">
-      Search for GitHub developers, explore their repositories,
-      discover projects, and view profile statistics.
-    </p>
-
-    <div className="mt-10 flex gap-3 flex-wrap justify-center">
-      <span className="px-4 py-2 bg-[#161b22] border border-[#30363d] rounded-lg text-[#58a6ff]">
-        React
-      </span>
-
-      <span className="px-4 py-2 bg-[#161b22] border border-[#30363d] rounded-lg text-[#58a6ff]">
-        Open Source
-      </span>
-
-      <span className="px-4 py-2 bg-[#161b22] border border-[#30363d] rounded-lg text-[#58a6ff]">
-        Developers
-      </span>
-
-      <span className="px-4 py-2 bg-[#161b22] border border-[#30363d] rounded-lg text-[#58a6ff]">
-        GitHub API
-      </span>
-    </div>
-  </div>
-)}
+          <p className="text-[#8b949e] text-lg max-w-xl">
+            Enter a GitHub username to view their profile,
+            repositories, and activity.
+          </p>
+        </div>
+      )}
 
       {profile && (
-        <div className="bg-[#161b22] border border-[#30363d] rounded-2xl p-8 mt-8">
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+        <div className="max-w-7xl mx-auto mt-10 grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8">
+          {/* LEFT SIDEBAR */}
+          <aside>
             <img
               src={profile.avatar_url}
               alt={profile.login}
-              className="w-32 h-32 rounded-full border border-[#30363d]"
+              className="w-64 h-64 rounded-full border border-[#30363d]"
             />
 
-            <div className="text-center md:text-left">
-              <h2 className="text-3xl font-bold text-[#c9d1d9]">
-               {profile.name || profile.login}
-              </h2>
+            <h2 className="text-2xl font-semibold text-[#f0f6fc] mt-4">
+              {profile.name || profile.login}
+            </h2>
 
-              <a
-                href={profile.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#58a6ff] hover:underline mt-1 inline-block"
+            <p className="text-xl text-[#8b949e]">
+              {profile.login}
+            </p>
+
+            <p className="text-[#c9d1d9] mt-4">
+              {profile.bio || "No bio available"}
+            </p>
+
+            <a
+              href={profile.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-center mt-5 w-full border border-[#30363d] bg-[#21262d] hover:bg-[#30363d] text-[#f0f6fc] py-2 rounded-md font-medium transition"
+            >
+              View GitHub Profile
+            </a>
+
+            <div className="flex items-center gap-2 text-[#8b949e] mt-4">
+              <FaUsers />
+              <span>
+                <strong className="text-[#f0f6fc]">
+                  {profile.followers}
+                </strong>{" "}
+                followers ·{" "}
+                <strong className="text-[#f0f6fc]">
+                  {profile.following}
+                </strong>{" "}
+                following
+              </span>
+            </div>
+
+            {profile.location && (
+              <div className="flex items-center gap-2 text-[#8b949e] mt-3">
+                <FaMapMarkerAlt />
+                <span>{profile.location}</span>
+              </div>
+            )}
+
+            {profile.blog && (
+              <div className="flex items-center gap-2 text-[#8b949e] mt-3">
+                <FaLink />
+
+                <a
+                  href={
+                    profile.blog.startsWith("http")
+                      ? profile.blog
+                      : `https://${profile.blog}`
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#58a6ff] hover:underline"
                 >
-                @{profile.login}
-              </a>
+                  {profile.blog}
+                </a>
+              </div>
+            )}
+          </aside>
 
-              <p className="text-[#8b949e] mt-4 max-w-2xl">
-               {profile.bio || "No bio available"}
-              </p>
-          </div>
-        </div>
+          {/* RIGHT CONTENT */}
+          <section>
+            <div className="border-b border-[#30363d] mb-6">
+              <button className="px-4 py-3 border-b-2 border-[#f78166] text-[#f0f6fc] font-medium">
+                Repositories
 
-        <div className="border-t border-[#30363d] mt-8 pt-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div className="text-center">
-            <p className="text-3xl font-bold text-[#c9d1d9]">
-              {profile.public_repos}
-            </p>
-            <p className="text-[#8b949e]">Repositories</p>
-          </div>
+                <span className="ml-2 px-2 py-0.5 text-xs rounded-full bg-[#30363d] text-[#c9d1d9]">
+                  {profile.public_repos}
+                </span>
+              </button>
+            </div>
 
-          <div className="text-center">
-            <p className="text-3xl font-bold text-[#c9d1d9]">
-              {profile.followers}
-            </p>
-            <p className="text-[#8b949e]">Followers</p>
-          </div>
+            <RepoFilters
+              sort={sort}
+              order={order}
+              onSortChange={setSort}
+              onOrderChange={setOrder}
+              disabled={loading}
+            />
 
-          <div className="text-center">
-            <p className="text-3xl font-bold text-[#c9d1d9]">
-               {profile.following}
-            </p>
-            <p className="text-[#8b949e]">Following</p>
-          </div>
-        </div>
-      </div>
-      )}
-
-      {repos.length > 0 && (
-        <div className="mt-8">
-          <RepoFilters
-            sort={sort}
-            order={order}
-            onSortChange={setSort}
-            onOrderChange={setOrder}
-            disabled={loading}
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {sortedRepos.map((repo) => (
-              <RepoCard key={repo.id} repo={repo} />
-            ))}
-          </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+              {sortedRepos.map((repo) => (
+                <RepoCard key={repo.id} repo={repo} />
+              ))}
+            </div>
+          </section>
         </div>
       )}
     </div>
