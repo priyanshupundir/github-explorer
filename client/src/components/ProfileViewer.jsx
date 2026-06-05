@@ -220,7 +220,7 @@ const ProfileViewer = () => {
                   Previous
                 </button>
 
-                <span className="text-[#8b949e]">
+                <span className="flex-items-center text-[#8b949e]">
                   Page {currentPage} of {totalPages}
                 </span>
 
