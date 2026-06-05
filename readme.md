@@ -220,6 +220,47 @@ Given more time, I would implement:
 
 ---
 
+## References & Acknowledgements
+
+### Design Inspiration
+
+* GitHub
+
+  * https://github.com
+
+### Tutorials & Learning Resources
+
+* ASMRProg - GitHub Dashboard UI Tutorial
+
+  * https://youtu.be/RM9LXkrY7Bk
+
+### Documentation
+
+* React Documentation
+
+  * https://react.dev
+
+* Vite Documentation
+
+  * https://vitejs.dev
+
+* Express.js Documentation
+
+  * https://expressjs.com
+
+* Tailwind CSS Documentation
+
+  * https://tailwindcss.com
+
+* GitHub REST API Documentation
+
+  * https://docs.github.com/en/rest
+
+### Notes
+
+The overall UI design was inspired by GitHub's profile interface and the ASMRProg GitHub Dashboard tutorial. The application was adapted and extended with additional functionality including server-side caching, repository pagination, repository detail expansion, improved error handling, and a custom backend API proxy.
+
+
 ## Author
 
 Priyanshu Pundir
