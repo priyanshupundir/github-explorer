@@ -139,7 +139,7 @@ const ProfileViewer = () => {
               View GitHub Profile
             </a>
 
-            <div className="flex items-center gap-2 text-[#8b949e] mt-4 pb-24">
+            <div className="flex items-center justify-center lg:justify-start gap-2 text-[#8b949e] mt-4">
               <FaUsers />
               <span>
                 <strong className="text-[#f0f6fc]">
