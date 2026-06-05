@@ -211,7 +211,7 @@ const ProfileViewer = () => {
             </div>
 
             {totalPages > 1 && (
-              <div className="flex justify-center items-center gap-3 mt-8">
+              <div className="flex justify-center gap-2 mt-8 pb-24">
                 <button
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage((page) => page - 1)}
