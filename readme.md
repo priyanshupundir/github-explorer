@@ -51,13 +51,13 @@ GitHub Explorer is a full-stack web application that allows users to search for 
 Frontend:
 
 ```text
-Add deployed frontend URL here
+https://github-explorer-three-psi.vercel.app
 ```
 
 Backend:
 
 ```text
-Add deployed backend URL here
+https://github-explorer-u5wc.onrender.com
 ```
 
 ---

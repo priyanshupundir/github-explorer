@@ -34,8 +34,6 @@ app.get("/api/github/:username", async (req, res) => {
           Accept: "application/vnd.github+json",
         };
 
-        console.log("GitHub token exists:", !!process.env.GITHUB_TOKEN);
-
     const userResponse = await axios.get(
       `https://api.github.com/users/${username}`,
       { headers }
