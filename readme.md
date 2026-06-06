@@ -12,7 +12,7 @@ GitHub Explorer is a full-stack web application that allows users to search for 
 
 ### Landing Page
 
-![Landing Page](./screenshots/landing-page.png)
+![Landing Page](./screenshots/landing-page.png.png)
 
 The landing page allows users to search GitHub profiles through a custom Node.js backend while providing a clean GitHub-inspired interface.
 
@@ -20,7 +20,7 @@ The landing page allows users to search GitHub profiles through a custom Node.js
 
 ### User Profile & Repository Explorer
 
-![Profile Page](./screenshots/profile-page.png)
+![Profile Page](./screenshots/profile-page.png.png)
 
 Displays user profile information, repository statistics, sorting options, expandable repository details, and repository pagination.
 
