@@ -12,7 +12,7 @@ GitHub Explorer is a full-stack web application that allows users to search for 
 
 ### Landing Page
 
-![Landing Page](./screenshots/landing-page.png.png)
+![Landing Page](./screenshots/landing-page.png)
 
 The landing page allows users to search GitHub profiles through a custom Node.js backend while providing a clean GitHub-inspired interface.
 
@@ -20,7 +20,7 @@ The landing page allows users to search GitHub profiles through a custom Node.js
 
 ### User Profile & Repository Explorer
 
-![Profile Page](./screenshots/profile-page.png.png)
+![Profile Page](./screenshots/profile-page.png)
 
 Displays user profile information, repository statistics, sorting options, expandable repository details, and repository pagination.
 
@@ -66,21 +66,14 @@ Displays user profile information, repository statistics, sorting options, expan
 
 ## Live Demo
 
-Frontend:
+Frontend: [GitHub Explorer](https://github-explorer-three-psi.vercel.app)
 
-```text
-https://github-explorer-three-psi.vercel.app
-```
-
-Backend:
-
-```text
-https://github-explorer-u5wc.onrender.com
-```
+Backend: [API Server](https://github-explorer-u5wc.onrender.com)
 
 ---
 
 ## Tech Stack
+
 
 ### Frontend
 
@@ -199,7 +192,7 @@ GET /api/github/torvalds
 
 ```json
 {
-  "message": "User not found"
+  "message": "GitHub user not found"
 }
 ```
 
@@ -213,13 +206,17 @@ github-explorer/
 ├── client/
 │   ├── src/
 │   │   ├── components/
-│   │   ├── assets/
+│   │   ├── utils/
 │   │   ├── App.jsx
 │   │   └── main.jsx
 │
 ├── server/
 │   ├── server.js
 │   └── package.json
+│
+├── screenshots/
+│   ├── landing-page.png
+│   └── profile-page.png
 │
 └── README.md
 ```
