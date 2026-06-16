@@ -2,10 +2,11 @@ import { useState } from "react";
 import axios from "axios";
 import { FaGithub, FaUsers, FaMapMarkerAlt, FaLink } from "react-icons/fa";
 
+import ErrorMessage from "./ErrorMessage";
 import SearchForm from "./SearchForm";
 import RepoCard from "./RepoCard";
 import RepoFilters from "./RepoFilters";
-import Pagination from "./pagination";
+import Pagination from "./Pagination";
 
 const ProfileViewer = () => {
   const [username, setUsername] = useState("");
@@ -90,11 +91,7 @@ const ProfileViewer = () => {
           placeholder="Search GitHub username..."
         />
 
-        {error && (
-          <div className="mt-4 p-4 bg-red-900/50 border border-red-700 rounded-lg text-red-200">
-            {error}
-          </div>
-        )}
+        <ErrorMessage message={error} />
       </div>
 
       {!profile && !loading && (
