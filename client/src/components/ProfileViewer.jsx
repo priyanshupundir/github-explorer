@@ -143,7 +143,7 @@ const ProfileViewer = () => {
                 <strong className="text-[#f0f6fc]">
                   {profile.followers}
                 </strong>{" "}
-                followers ·{" "}
+                followers -{" "}
                 <strong className="text-[#f0f6fc]">
                   {profile.following}
                 </strong>{" "}

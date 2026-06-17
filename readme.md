@@ -202,23 +202,20 @@ GET /api/github/torvalds
 
 ```text
 github-explorer/
-│
-├── client/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── utils/
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│
-├── server/
-│   ├── server.js
-│   └── package.json
-│
-├── screenshots/
-│   ├── landing-page.png
-│   └── profile-page.png
-│
-└── README.md
+|-- client/
+|   |-- src/
+|   |   |-- components/
+|   |   |-- utils/
+|   |   |-- App.jsx
+|   |   `-- main.jsx
+|   `-- package.json
+|-- server/
+|   |-- server.js
+|   `-- package.json
+|-- screenshots/
+|   |-- landing-page.png
+|   `-- profile-page.png
+`-- README.md
 ```
 
 ---
@@ -274,6 +271,8 @@ Given more time, I would implement:
 ### Notes
 
 The overall UI design was inspired by GitHub's profile interface and the ASMRProg GitHub Dashboard tutorial. The application was adapted and extended with additional functionality including server-side caching, repository pagination, repository detail expansion, improved error handling, and a custom backend API proxy.
+
+AI tooling was used for review, debugging support, and README polish. I reviewed the final implementation and can explain the frontend components, backend proxy route, caching logic, API error handling, and deployment setup.
 
 
 ## Author
